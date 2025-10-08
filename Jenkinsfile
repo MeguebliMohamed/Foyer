@@ -12,12 +12,6 @@ pipeline {
         SONARQUBE_TOKEN = credentials('sonar-token')  // ID du token SonarQube (Secret Text)
     }
 
-    environment {
-        GIT_REPO_URL = 'https://github.com/MeguebliMohamed/Foyer.git'
-        SONARQUBE_SERVER = 'SonarQube'                // Nom du serveur SonarQube dans Jenkins
-        SONARQUBE_TOKEN = credentials('sonar-token')  // ID du token SonarQube (Secret Text)
-    }
-
     stages {
         stage('Pull from Git') {
             steps {
