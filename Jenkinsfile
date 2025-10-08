@@ -35,17 +35,15 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
-            steps {
+             steps {
                 echo '🔍 Analyse du code avec SonarQube...'
                 withSonarQubeEnv("${SONARQUBE_SERVER}") {
-                    sh """
-                        mvn sonar:sonar \
-                        -Dsonar.projectKey=tp-foyer \
-                        -Dsonar.host.url=$SONAR_HOST_URL \
-                        -Dsonar.login=$SONARQUBE_TOKEN
-                    """
-                    echo "🔗 Résultats SonarQube : $SONAR_HOST_URL/dashboard?id=tp-foyer"
-                }
+                sh """
+                    mvn sonar:sonar \
+                    -Dsonar.projectKey=tp-foyer
+                """
+                echo "🔗 Résultats SonarQube : $SONAR_HOST_URL/dashboard?id=tp-foyer"
+              }
             }
         }
 
