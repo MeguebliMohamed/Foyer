@@ -12,6 +12,12 @@ pipeline {
         SONARQUBE_TOKEN = credentials('sonar-token')  // ID du token SonarQube (Secret Text)
     }
 
+    environment {
+        GIT_REPO_URL = 'https://github.com/MeguebliMohamed/Foyer.git'
+        SONARQUBE_SERVER = 'SonarQube'                // Nom du serveur SonarQube dans Jenkins
+        SONARQUBE_TOKEN = credentials('sonar-token')  // ID du token SonarQube (Secret Text)
+    }
+
     stages {
         stage('Pull from Git') {
             steps {
@@ -41,10 +47,10 @@ pipeline {
                     sh """
                         mvn sonar:sonar \
                         -Dsonar.projectKey=tp-foyer \
-                        -Dsonar.host.url=${env.SONAR_HOST_URL} \
-                        -Dsonar.login=${SONARQUBE_TOKEN}
+                        -Dsonar.host.url=$SONAR_HOST_URL \
+                        -Dsonar.login=$SONARQUBE_TOKEN
                     """
-                    echo "🔗 Résultats SonarQube : ${env.SONAR_HOST_URL}/dashboard?id=tp-foyer"
+                    echo "🔗 Résultats SonarQube : $SONAR_HOST_URL/dashboard?id=tp-foyer"
                 }
             }
         }
@@ -70,6 +76,6 @@ pipeline {
         }
         failure {
             echo '❌ Le pipeline a échoué. Vérifiez les logs Jenkins.'
-        }
-    }
+        }
+    }
 }
